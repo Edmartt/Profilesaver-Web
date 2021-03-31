@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Registro de Usuario{% endblock %}
+
+{% block content_page %}
+<form action="register" method="POST">
+	{{form.hidden_tag()}}
+	{{form.username(placeholder="Username")}}
+	{{form.email(placeholder="Email")}}
+	{{form.password(placeholder="Password")}}
+	{{form.submit()}}
+
+</form>
+
+{% endblock %}

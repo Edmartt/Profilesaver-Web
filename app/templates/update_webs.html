@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Profiles{% endblock %}
+
+{%block content_page%}
+
+<form action="/edit/{{web.0}}" method="POST">
+	{{form.hidden_tag()}}
+	{{form.username(placeholder="Username")}}
+	{{form.url(placeholder="Sitio Web")}}
+	{{form.email(placeholder="Email")}}
+	{{form.password(placeholder="Password")}}
+	{{form.passconfirm(placeholder="Confirmar Password")}}
+	{{form.notas(placeholder="Notas")}}
+	{{form.submit()}}
+
+</form>
+
+{%endblock%}

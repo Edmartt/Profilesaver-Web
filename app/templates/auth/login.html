@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content_page %}
+<div class="container-sm">
+<form action="" method="POST">
+	{{form.hidden_tag()}}
+	{{form.username(placeholder="Nombre de Usuario")}}
+	{{form.password(placeholder="Password")}}
+	{{form.submit()}}
+
+</form>
+
+</div>
+
+{% endblock %}
