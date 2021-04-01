@@ -11,6 +11,7 @@
 			<th>Web</th>
 			<th>Contraseña</th>
 			<th>Email</th>
+			<th>Nota</th>
 			<th>Acciones</th>
 		</tr>
 	</thead>
@@ -20,10 +21,11 @@
 			<td>{{web.6}}</td>
 			<td>{{web.2}}</td>
 			<td>{{web.4}}</td>
+			<td>{{web.3}}</td>
 			<td>{{web.5}}</td>
 			<td>
-				<a href="/edit/{{web.0}}/" class="btn btn-secondary">Editar</a>
-				<a href="/delete/{{web.0}}/" class="btn btn-danger btn-delete">Eliminar</a>
+				<a href="/edit/{{web.0}}" class="btn btn-secondary">Editar</a>
+				<a href="/delete/{{web.0}}" class="btn btn-danger btn-delete">Eliminar</a>
 			</td>
 		</tr>
 		{%endfor%}

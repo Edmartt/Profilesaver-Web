@@ -36,14 +36,13 @@ class Website:
             close_db()
 
     def editWeb(self,web_id):
-        cursor=get_db()
         try:
-            cursor.execute('UPDATE Websites SET web_name=?,web_email=?,web_pass=?,nota=?,web_username=? WHERE web_id=?',(self.web_name,self.web_email,self.web_pass,self.nota,self.web_username,self.id))
+            close_db()
+            cursor=get_db()
+            cursor.execute('UPDATE Websites SET web_name=?,web_email=?,web_pass=?,nota=?,web_username=? WHERE web_id=?',(self.web_name,self.web_email,self.web_pass,self.nota,self.web_username,web_id))
             cursor.commit()
         except Exception as e:
             print(e)
-        finally:
-            close_db()
 
     @staticmethod
     def loadWeb(id):

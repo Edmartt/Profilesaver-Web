@@ -1,6 +1,6 @@
 from flask import render_template,redirect,url_for,session,g,request,flash
 from . import main
-from .forms import AddAccount,editWeb
+from .forms import AddAccount,EditWeb
 from app.websites import Website
 from app.auth.views import login_required
 from ..database import get_db,close_db
@@ -26,8 +26,18 @@ def add_account():
     return render_template('add_account.html',form=form)
 
 
-@main.route('/edit/<string:id>/',methods=['GET','POST'])
+@main.route('/edit/<string:id>',methods=['GET','POST'])
 def edit(id):
     web=Website.loadWeb(id)
-    form=editWeb(username=web[6])
+    form=EditWeb(username=web[6],url=web[2],password=web[4],notas=web[5],email=web[3])
     return render_template('update_webs.html',web=web,form=form)
+
+@main.route('/update/<string:id>',methods=['GET','POST'])
+def update(id):
+    form=EditWeb()
+    web=Website(form.username.data,form.url.data,form.email.data,form.password.data,form.notas.data)
+    web.editWeb(id)
+    flash('Datos actualizados')
+    return redirect(url_for('main.index'))
+
+
