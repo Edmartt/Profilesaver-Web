@@ -4,6 +4,7 @@ from . import auth
 from .forms import Login,Register
 from app.users import User
 
+
 @auth.before_app_request
 def load_logged_in_user():
     user_id=session.get('user_id')

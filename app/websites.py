@@ -56,3 +56,13 @@ class Website:
             print(e)
         finally:
             close_db()
+
+    @staticmethod
+    def deleteWeb(id):
+        try:
+            close_db()
+            cursor=get_db()
+            cursor.execute('DELETE FROM Websites WHERE web_id=?',(id,))
+            cursor.commit()
+        except Exception as e:
+            print(e)
