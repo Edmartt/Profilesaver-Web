@@ -66,3 +66,5 @@ class Website:
             cursor.commit()
         except Exception as e:
             print(e)
+        finally:
+            close_db()
