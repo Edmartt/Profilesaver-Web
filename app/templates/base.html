@@ -8,21 +8,27 @@
 </head>
 <body>
 	<header>
-		<nav>
-			<ul>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="{{url_for('main.index')}}">ProfileSaver</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle-navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<section class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
 				{% if g.user %}
-				<li><a href="{{url_for('.index')}}">Inicio</a></li>
-				<li><a href="{{url_for('main.add_account')}}">Añadir Cuenta</a></li>
-				<li><a href="">Cuentas Guardadas</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{url_for('main.index')}}">Inicio</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{url_for('main.add_account')}}">Añadir Cuenta</a></li>
+				<li class="nav-item"><a class="nav-link"href="">Cuentas Guardadas</a></li>
 				<li><b>Usuario Activo: {{g.user['username']}}</b></li>
-				<li><a href="">Ajustes</a></li>
-				<li><a href="{{url_for('auth.logout')}}">Salir</a></li>
+				<li class="nav-item"><a class="nav-link" href="">Ajustes</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{url_for('auth.logout')}}">Salir</a></li>
 				{% else %}
-				<li><a href="{{url_for('auth.register')}}">Registro</a></li>
-				<li><a href="{{url_for('auth.login')}}">Login</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{url_for('auth.register')}}">Registro</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{url_for('auth.login')}}">Login</a></li>
 				{% endif %}
 			</ul>
-		</nav>
+	</section>
+		</nav>	
 	</header>
 	<div class="container">
 		{% for message in get_flashed_messages() %}
@@ -41,7 +47,7 @@
 	<script src="./static/js/jquery-3.5.1.min.js"></script>
 	<script src="./static/js/popper.min.js"></script>
 	<script src="./static/js/bootstrap.min.js"></script>
-
+	<script src="./static/js/main.js"></script>
 
 </body>
 </html>

@@ -4,6 +4,7 @@ from . import auth
 from .forms import Login,Register
 from app.users import User
 
+
 @auth.before_app_request
 def load_logged_in_user():
     user_id=session.get('user_id')
@@ -23,7 +24,9 @@ def login():
             print("mi id: ",session['user_id'])
             flash('Sesion iniciada')
             return redirect(url_for('main.index'))
-        flash('Nombre de usuario o contraseña no válido')
+        else:
+            flash('Nombre de usuario o contraseña no válido')
+            return redirect(url_for('auth.login'))
     return render_template('auth/login.html',form=form)
 
 @auth.route('/logout')
@@ -49,6 +52,7 @@ def register():
         user.password=form.password.data
         user.registerUser(user)
         flash('Usuario Registrado')
+        return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html',form=form)
 
