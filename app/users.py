@@ -21,15 +21,19 @@ class User:
 
     @staticmethod
     def select_user(username):
-        cursor=get_db().cursor()
-        cursor.execute('SELECT * FROM Users WHERE username="{}"'.format(username))
-        user=cursor.fetchone()
-        if user:
-            id=user[0]
-            username=user[1]
-            email=user[2]
-            password=user[3]
-            return User(username,password,email,id)
+        try:
+            close_db()
+            cursor=get_db().cursor()
+            cursor.execute('SELECT * FROM Users WHERE username="{}"'.format(username))
+            user=cursor.fetchone()
+            if user:
+                id=user[0]
+                username=user[1]
+                email=user[2]
+                password=user[3]
+                return User(username,password,email,id)
+        except Exception as e:
+            print(e)
 
     @staticmethod
     def select_user_by_id(id):
@@ -41,6 +45,7 @@ class User:
 
     def registerUser(self,user):
         try:
+            close_db()
             cursor=get_db()
             cursor.execute('INSERT INTO Users (username,password,email) VALUES(?,?,?)',(self.username,self.password_hash,self.email))
             cursor.commit()
