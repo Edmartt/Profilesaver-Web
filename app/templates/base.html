@@ -16,9 +16,9 @@
 			<section class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				{% if g.user %}
-				<li class="nav-item"><a class="nav-link" href="{{url_for('.index')}}">Inicio</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{url_for('main.index')}}">Inicio</a></li>
 				<li class="nav-item"><a class="nav-link" href="{{url_for('main.add_account')}}">Añadir Cuenta</a></li>
-				<li class)"nav-item"><a class="nav-link"href="">Cuentas Guardadas</a></li>
+				<li class="nav-item"><a class="nav-link"href="">Cuentas Guardadas</a></li>
 				<li><b>Usuario Activo: {{g.user['username']}}</b></li>
 				<li class="nav-item"><a class="nav-link" href="">Ajustes</a></li>
 				<li class="nav-item"><a class="nav-link" href="{{url_for('auth.logout')}}">Salir</a></li>
