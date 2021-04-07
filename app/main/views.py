@@ -15,6 +15,7 @@ def index():
 @main.route('/add_account',methods=['GET','POST'])
 @login_required
 def add_account():
+
     form=AddAccount()
     try:
         if form.validate_on_submit():
