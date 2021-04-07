@@ -3,15 +3,35 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content_page %}
-<div class="container-sm">
-<form action="" method="POST">
-	{{form.hidden_tag()}}
-	{{form.username(placeholder="Nombre de Usuario")}}
-	{{form.password(placeholder="Password")}}
-	{{form.submit()}}
 
-</form>
 
-</div>
+<section class="container-sm log">			
+	<form action="" method="POST">
+		<div class="form-group">
+			<div class="row justify-content-end">
+				<div class="col-6">
+					{{form.hidden_tag()}}
+					{{form.username(placeholder="Usuario",class="form-control text-black username")}}
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="row justify-content-end">
+				<div class="col-6">
+					{{form.password(placeholder="Password",class="form-control text-muted")}}
+				</div>
+			</div>
+		</div>
+		
+		<div class="row justify-content-end">
+			<div class="col-3">
+				{{form.submit(class="btn btn-block btn-success btn-log")}}
+			</div>
+		</div>
+	</form>
+</section>
+
+
 
 {% endblock %}
