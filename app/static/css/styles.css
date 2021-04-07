@@ -1,0 +1,31 @@
+.tituloindex{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.filatxt{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.dropdown-menu > a:hover {
+    background-image: none;
+    background-color:rgba(0,0, 0,0.1);
+    font-weight: bold;
+    color: white;
+}
+
+
+.btn-log{
+    font-weight: bold;
+}
+.username{
+    font-weight: bold;
+
+}
+
+.log{
+    max-height: 100vh;
+        
+}
