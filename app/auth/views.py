@@ -47,12 +47,19 @@ def login_required(view):
 @auth.route('/register',methods=['GET','POST'])
 def register():
     form=Register()
-    if form.validate_on_submit():
-        user=User(form.username.data,form.password.data,form.email.data)
-        user.password=form.password.data
-        user.registerUser(user)
-        flash('Usuario Registrado')
-        return redirect(url_for('auth.login'))
 
+    if session.get('user_id') is not None:
+        return redirect(url_for('main.index'))
+
+    else:
+        if form.validate_on_submit():
+            user=User(form.username.data,form.password.data,form.email.data)
+            user.password=form.password.data
+            user.registerUser(user)
+            flash('Usuario Registrado')
+            return redirect(url_for('auth.login'))
     return render_template('auth/register.html',form=form)
+
+
+    
 
