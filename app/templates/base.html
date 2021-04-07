@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="{{url_for('static',filename='/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='/css/styles.css')}}">
 	<title>ProfileSaver - {% block title %}{% endblock %}</title>
 
 </head>
@@ -16,15 +18,26 @@
 			<section class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				{% if g.user %}
-				<li class="nav-item"><a class="nav-link" href="{{url_for('main.index')}}">Inicio</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{url_for('main.add_account')}}">Añadir Cuenta</a></li>
-				<li class="nav-item"><a class="nav-link"href="">Cuentas Guardadas</a></li>
-				<li><b>Usuario Activo: {{g.user['username']}}</b></li>
-				<li class="nav-item"><a class="nav-link" href="">Ajustes</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{url_for('auth.logout')}}">Salir</a></li>
+				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('main.index')}}">Inicio</a></li>
+				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('main.add_account')}}">Añadir Cuenta</a></li>
+				
+				<!--Inicio dropdown-->
+				<div class="dropdown">
+					<a class="nav-link text-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  Mi perfil
+					</a>
+				  
+					<div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuLink">
+					  <a class="dropdown-item text-light" href="#">Info</a>
+					  <a class="dropdown-item text-light" href="#">Seguridad</a>
+					  <a class="dropdown-item text-light" href="{{url_for('auth.logout')}}">Salir</a>
+					</div>
+				  </div>
+
+				<!--fin de dropdown-->
 				{% else %}
-				<li class="nav-item"><a class="nav-link" href="{{url_for('auth.register')}}">Registro</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{url_for('auth.login')}}">Login</a></li>
+				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('auth.register')}}">Registro</a></li>
+				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('auth.login')}}">Login</a></li>
 				{% endif %}
 			</ul>
 	</section>
@@ -39,15 +52,17 @@
 		{%endfor%}
 	
 	</div>
+	<div class="cuerpo">
 	{% block content_page %}
 
 
 
 	{% endblock %}
-	<script src="./static/js/jquery-3.5.1.min.js"></script>
-	<script src="./static/js/popper.min.js"></script>
-	<script src="./static/js/bootstrap.min.js"></script>
-	<script src="./static/js/main.js"></script>
 
+	<script src="../static/js/jquery-3.5.1.min.js"></script>
+	<script src="../static/js/popper.min.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<script src="../static/js/main.js"></script>
+</div>
 </body>
 </html>
