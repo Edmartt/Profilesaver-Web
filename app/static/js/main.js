@@ -9,3 +9,15 @@ const btnArray=Array.from(btnDelete);
 								});
 				});
 }
+
+const btnUpdate= document.querySelectorAll('.btn-update')
+if (btnUpdate){
+const btnArra=Array.from(btnUpdate);
+				btnArra.forEach((btn)=>{
+								btn.addEventListener('click',(e)=>{
+								if(!confirm('¿Deseas actualizar este registro?')){
+								e.preventDefault();
+								}
+								});
+				});
+}
