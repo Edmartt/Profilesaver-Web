@@ -10,34 +10,34 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="{{url_for('main.index')}}">ProfileSaver</a>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark barra-menu">
+			<a class="navbar-brand marca" href="{{url_for('main.index')}}">ProfileSaver</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle-navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<section class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				{% if g.user %}
-				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('main.index')}}">Inicio</a></li>
-				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('main.add_account')}}">Añadir Cuenta</a></li>
+				<li class="nav-item"><a class="nav-link text-light menu-txt" href="{{url_for('main.index')}}">Inicio</a></li>
+				<li class="nav-item"><a class="nav-link text-light menu-txt" href="{{url_for('main.add_account')}}">Añadir Cuenta</a></li>
 				
 				<!--Inicio dropdown-->
 				<div class="dropdown">
-					<a class="nav-link text-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<a class="nav-link text-light  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					  Mi perfil
 					</a>
 				  
 					<div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuLink">
-					  <a class="dropdown-item text-light" href="#">Info</a>
-					  <a class="dropdown-item text-light" href="#">Seguridad</a>
-					  <a class="dropdown-item text-light" href="{{url_for('auth.logout')}}">Salir</a>
+					  <a class="dropdown-item text-light menu-txt" href="#">Info</a>
+					  <a class="dropdown-item text-light menu-txt" href="#">Seguridad</a>
+					  <a class="dropdown-item text-light menu-txt" href="{{url_for('auth.logout')}}">Salir</a>
 					</div>
 				  </div>
 
 				<!--fin de dropdown-->
 				{% else %}
-				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('auth.register')}}">Registro</a></li>
-				<li class="nav-item"><a class="nav-link text-light" href="{{url_for('auth.login')}}">Login</a></li>
+				<li class="nav-item"><a class="nav-link text-light menu-txt" href="{{url_for('auth.register')}}">Registro</a></li>
+				<li class="nav-item"><a class="nav-link text-light menu-txt" href="{{url_for('auth.login')}}">Login</a></li>
 				{% endif %}
 			</ul>
 	</section>
@@ -52,7 +52,7 @@
 		{%endfor%}
 	
 	</div>
-	<div class="cuerpo">
+
 	{% block content_page %}
 
 
@@ -63,6 +63,6 @@
 	<script src="../static/js/popper.min.js"></script>
 	<script src="../static/js/bootstrap.min.js"></script>
 	<script src="../static/js/main.js"></script>
-</div>
+
 </body>
 </html>

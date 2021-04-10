@@ -1,5 +1,6 @@
 from werkzeug.security import check_password_hash,generate_password_hash
 from .database import get_db,close_db
+
 class User:
 
     def __init__(self,username,password,email=None,id=None):
@@ -37,11 +38,16 @@ class User:
 
     @staticmethod
     def select_user_by_id(id):
-        cursor=get_db().cursor()
-        cursor.execute('SELECT * FROM users WHERE id=?',(id,))
-        user=cursor.fetchone()
-        if user:
-            return user
+        try:    
+            cursor=get_db().cursor()
+            cursor.execute('SELECT * FROM users WHERE id=?',(id,))
+            user=cursor.fetchone()
+            if user:
+                return user
+        except Exception as e:
+            print(e)
+        finally:
+            close_db()
 
     def registerUser(self,user):
         try:
@@ -51,4 +57,6 @@ class User:
             cursor.commit()
         except Exception as e:
             print(e)
+        finally:
+            close_db()
 
