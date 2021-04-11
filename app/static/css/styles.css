@@ -48,13 +48,11 @@ background: linear-gradient(to right, #373B44, #73C8A9); /* W3C, IE 10+/ Edge, F
     width: 800px;
     height: 600px;
     padding: 30px;
+    margin-top:  60px;
 }
 
 
-.loc{
-    padding: 0;
-    margin-top: 0px;
-}
+
 
 .btn-log{
     background: white;
