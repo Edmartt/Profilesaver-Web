@@ -13,9 +13,8 @@ class Website:
 
     def saveweb(self,web):
         try:
-            close_db()
             cursor=get_db()
-            cursor.execute('INSERT INTO Websites (user_id,web_name,web_email,web_pass,nota,web_username) VALUES(?,?,?,?,?,?)',(self.user_id,self.web_name,self.web_email,self.web_pass,self.nota,self.web_username))
+            cursor.execute('INSERT INTO Websites (user_id,web_name,web_email,web_pass,nota,web_username) VALUES(?,?,?,?,?,?)',(session['user_id'],self.web_name,self.web_email,self.web_pass,self.nota,self.web_username))
             cursor.commit()
         except Exception as e:
             print(e)
@@ -25,7 +24,6 @@ class Website:
     @staticmethod
     def showprofiles(user_id):
         try:
-            close_db()
             cursor=get_db().cursor()
             cursor.execute('SELECT * FROM Websites WHERE user_id=?',(user_id,))
             webs=cursor.fetchall()
@@ -47,7 +45,6 @@ class Website:
     @staticmethod
     def loadWeb(id):
         try:
-            close_db()
             cursor=get_db().cursor()
             cursor.execute('SELECT * FROM Websites WHERE web_id=?',(id,))
             data=cursor.fetchone()

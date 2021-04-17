@@ -16,5 +16,16 @@ CREATE TABLE IF NOT EXISTS Websites(
     web_username VARCHAR(60) NOT NULL,
     CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES Users(id) ON DELETE CASCADE
     ON UPDATE CASCADE
+    );
 
-    )
+
+CREATE TABLE reg_users(
+    username varchar(60),
+    email varchar(60),
+    signup_date timestamp);
+
+CREATE TRIGGER USERS_AI AFTER INSERT ON Users 
+FOR EACH ROW 
+    BEGIN 
+        INSERT INTO reg_users(username,email,signup_date) VALUES (new.username,new.email,datetime('now'));
+    END;

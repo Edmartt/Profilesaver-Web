@@ -1,0 +1,90 @@
+html{
+    height: 100%;
+}
+
+body{
+    margin:0;
+    padding: 0;
+    background: #73C8A9;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #373B44, #73C8A9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #373B44, #73C8A9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.tituloindex{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+}
+
+.filatxt{
+    font-weight: bold;
+    font-style: italic;
+    background: white;
+    color:color;
+}
+
+.dropdown-menu > a:hover {
+    background-image: none;
+    background-color:rgba(0,0, 0,0.1);
+    font-weight: bold;
+    color: white;
+}
+.cont{
+    margin-top: 50px;
+    height: 50vh;
+    background: rgba(255, 255, 255, 0.034);
+}
+
+
+.btn-log{
+    font-weight: bold;
+}
+
+
+.cuerpo{
+    background: rgba(0, 0, 0, 0.068);
+
+    width: 800px;
+    height: 600px;
+    padding: 30px;
+    margin-top:  60px;
+}
+
+
+
+
+.btn-log{
+    background: white;
+    color: seagreen;
+}
+.marca{
+    font-weight: bold;
+
+}
+tr{
+    text-align: center;
+}
+tr:hover{
+    cursor: pointer;
+}
+.menu-txt{
+    font-style: italic;
+    color: white;
+    padding: 10px;
+}
+.menu-txt:hover{
+    background-color: rgba(0, 0, 0, 0.027);
+    padding-left: 30px;
+    padding-right: 30px;
+    color: white;
+
+}
+.username{
+    margin-bottom: 10px;
+}
+.logomarca{
+    height: 100px;
+    padding: 0;
+    margin: 0;
+}

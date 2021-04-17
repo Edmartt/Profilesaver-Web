@@ -10,5 +10,4 @@ If you are Linux User:
 7. flask init-db
 8. flask run
 
-If you are  Windows user, the step 2 just change bin folder and it's called Scripts.
 Instead export command use set. Those are the only differences.
