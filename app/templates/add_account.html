@@ -3,7 +3,7 @@
 
 {%block content_page%}
 
-<form action="{{url_for('.add_account')}}" method="POST">
+<form action="{{url_for('main.add_account')}}" method="POST">
 	{{form.hidden_tag()}}
 	{{form.username(placeholder="Nombre de Usuario")}}
 	{{form.url(placeholder="URL del Sitio")}}
