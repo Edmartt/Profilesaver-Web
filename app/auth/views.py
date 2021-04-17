@@ -21,7 +21,6 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             session.clear()
             session['user_id']=user.id
-            print("mi id: ",session['user_id'])
             flash('Sesion iniciada')
             return redirect(url_for('main.index'))
         else:
@@ -59,7 +58,4 @@ def register():
             flash('Usuario Registrado')
             return redirect(url_for('auth.login'))
     return render_template('auth/register.html',form=form)
-
-
-    
 

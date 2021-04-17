@@ -3,7 +3,7 @@ from . import main
 from .forms import AddAccount,EditWeb
 from app.websites import Website
 from app.auth.views import login_required
-from ..database import get_db,close_db
+
 
 @main.route('/')
 @login_required
@@ -15,15 +15,12 @@ def index():
 @main.route('/add_account',methods=['GET','POST'])
 @login_required
 def add_account():
-
     form=AddAccount()
-    try:
-        if form.validate_on_submit():
-            web=Website(form.username.data,form.url.data,form.email.data,form.password.data,form.notas.data,session['user_id'])
-            web.saveweb(web)
-            flash('Perfil Guardado correctamente')
-    except Exception as e:
-        print(e)
+    if form.validate_on_submit():
+        web=Website(form.username.data,form.url.data,form.email.data,form.password.data,form.notas.data,session['user_id'])
+        web.saveweb(web)
+        print(web.user_id)
+        flash('Perfil Guardado correctamente')
     return render_template('add_account.html',form=form)
 
 
@@ -48,3 +45,7 @@ def delete(id):
     Website.deleteWeb(id)
     flash('Dato Eliminado correctamente')
     return redirect(url_for('main.index'))
+
+@main.route('/info',methods=['GET','POST'])
+def get_info():
+    pass
