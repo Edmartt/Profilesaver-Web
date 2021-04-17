@@ -9,5 +9,3 @@ If you are Linux User:
 6. export FLASK_DEBUG=1
 7. flask init-db
 8. flask run
-
-Instead export command use set. Those are the only differences.
