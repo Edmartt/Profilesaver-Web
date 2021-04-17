@@ -23,9 +23,9 @@ class User:
     @staticmethod
     def select_user(username):
         try:
-            close_db()
+
             cursor=get_db().cursor()
-            cursor.execute('SELECT * FROM Users WHERE username="{}"'.format(username))
+            cursor.execute('SELECT * FROM Users WHERE username=?',(username,))
             user=cursor.fetchone()
             if user:
                 id=user[0]
@@ -35,10 +35,12 @@ class User:
                 return User(username,password,email,id)
         except Exception as e:
             print(e)
+        finally:
+            close_db()
 
     @staticmethod
     def select_user_by_id(id):
-        try:    
+        try:
             cursor=get_db().cursor()
             cursor.execute('SELECT * FROM users WHERE id=?',(id,))
             user=cursor.fetchone()
@@ -50,8 +52,8 @@ class User:
             close_db()
 
     def registerUser(self,user):
+        #close_db()
         try:
-            close_db()
             cursor=get_db()
             cursor.execute('INSERT INTO Users (username,password,email) VALUES(?,?,?)',(self.username,self.password_hash,self.email))
             cursor.commit()
