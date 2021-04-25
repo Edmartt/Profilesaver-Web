@@ -3,7 +3,7 @@ from .database import get_db,close_db
 
 class User:
 
-    def __init__(self,username,password,email=None,id=None):
+    def __init__(self,username,email,password,id=None):
         self.id=id
         self.username=username
         self.email=email
@@ -23,16 +23,16 @@ class User:
     @staticmethod
     def select_user(username):
         try:
-
-            cursor=get_db().cursor()
-            cursor.execute('SELECT * FROM Users WHERE username=?',(username,))
+            db,cursor=get_db()
+            cursor.execute('SELECT * FROM Users WHERE username=%s',(username,))
             user=cursor.fetchone()
+
             if user:
-                id=user[0]
-                username=user[1]
-                email=user[2]
-                password=user[3]
-                return User(username,password,email,id)
+                id=user['id']
+                username=user['username']
+                email=user['email']
+                password=user['password']
+                return User(username,email,password,id)
         except Exception as e:
             print(e)
         finally:
@@ -41,8 +41,8 @@ class User:
     @staticmethod
     def select_user_by_id(id):
         try:
-            cursor=get_db().cursor()
-            cursor.execute('SELECT * FROM users WHERE id=?',(id,))
+            db,cursor=get_db()
+            cursor.execute('SELECT * FROM Users WHERE id=%s',(id,))
             user=cursor.fetchone()
             if user:
                 return user
@@ -52,13 +52,11 @@ class User:
             close_db()
 
     def registerUser(self,user):
-        #close_db()
         try:
-            cursor=get_db()
-            cursor.execute('INSERT INTO Users (username,password,email) VALUES(?,?,?)',(self.username,self.password_hash,self.email))
-            cursor.commit()
+            db,cursor=get_db()
+            cursor.execute('INSERT INTO Users (username,email,password) VALUES(%s,%s,%s)',(self.username,self.email,self.password_hash))
+            db.commit()
         except Exception as e:
             print(e)
         finally:
             close_db()
-

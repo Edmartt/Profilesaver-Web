@@ -28,7 +28,7 @@ def add_account():
 @login_required
 def edit(id):
     web=Website.loadWeb(id)
-    form=EditWeb(username=web[6],url=web[2],password=web[4],notas=web[5],email=web[3])
+    form=EditWeb(username=web['web_username'],url=web['web_name'],password=web['web_pass'],notas=web['nota'],email=web['web_email'])
     return render_template('update_webs.html',web=web,form=form)
 
 @main.route('/update/<string:id>',methods=['GET','POST'])
@@ -41,11 +41,13 @@ def update(id):
     return redirect(url_for('main.index'))
 
 @main.route('/delete/<string:id>',methods=['GET','POST'])
+@login_required
 def delete(id):
     Website.deleteWeb(id)
     flash('Dato Eliminado correctamente')
     return redirect(url_for('main.index'))
 
 @main.route('/info',methods=['GET','POST'])
+@login_required
 def get_info():
     pass
