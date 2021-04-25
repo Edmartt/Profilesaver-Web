@@ -2,7 +2,6 @@ attrs==20.3.0
 blinker==1.4
 click==7.1.2
 dnspython==2.1.0
-email-validator==1.0.5
 Flask==1.1.2
 Flask-Email==1.4.4
 Flask-Mail==0.9.1
@@ -13,6 +12,8 @@ iniconfig==1.1.1
 itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
+mysql-connector==2.2.9
+mysqlclient==2.0.3
 packaging==20.9
 pluggy==0.13.1
 py==1.10.0
