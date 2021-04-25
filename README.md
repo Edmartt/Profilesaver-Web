@@ -1,12 +1,11 @@
 # Profilesaver-Web
 
 
-Profilesaver is an application that allows to save your social media and web profiles credential
-in a database.
+Profilesaver is an application that allows to save your social media and web profiles credential in a database.
 
 Profilesaver can:
 
-1. Create your user name and password for your own private space
+1. Create your username and password for your own private space
 2. Let you log in with your username and password
 3. The first view is the window with your saved accounts, but the first time, the table is empty, this is the index
 4. The menu option add account let you add a new account asking for username, your email, your password and a little description about the profile
