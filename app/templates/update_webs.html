@@ -4,7 +4,7 @@
 
 {%block content_page%}
 
-<form action="/update/{{web.0}}" method="POST">
+<form action="/update/{{web['web_id']}}" method="POST">
 	{{form.hidden_tag()}}
 	{{form.username(placeholder="Username")}}
 	{{form.url(placeholder="Sitio Web")}}
