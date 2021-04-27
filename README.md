@@ -1,7 +1,7 @@
-# Profilesaver-Web
+# Profilesaver-Web 🔐
 
 
-Profilesaver is an application that allows to save your social media and web profiles credential in a database.
+📖 **Profilesaver** is a web application that allows to save your social media and web profiles credential in a database.
 
 Profilesaver can:
 
@@ -12,7 +12,7 @@ Profilesaver can:
 5. The profilesaver password is encrypted with generate_password_hash function from Flask
 6. Your session is active even if you close the browser, unless you choose to logout
 
-# Soon:
+## Soon 🔜 :
 1. Email validation format.
 2. Error messages
 3. Email confirmation with token
@@ -21,11 +21,11 @@ Profilesaver can:
 6. Password reset option
 
 
-# Running Profilesaver:
+## 💥 Requirements:
 
-On Linux
+### On Linux
 
-1. python3 -m venv yourvirtualenviroment name
+1. python3 -m venv yourvirtualenviromentname
 2. . yourvirtualenviroment/bin/activate
 3. pip install -r requirements.txt
 4. export FLASK_APP=app/
@@ -39,9 +39,9 @@ On Linux
 12. flask init-db
 13. flask run
 
-optionally, you can create a .sh file at the same level of the project folder with all the enviroment variable and type .(dot) myfile.sh
+optionally, you can create a .sh file at the same level of the project folder with all the enviroment variable and type **. myfile.sh**
 
-On Windows:
+### On Windows:
 
 1. python3 -m venv yourvirtualenviroment name
 2. . yourvirtualenviroment/bin/activate
@@ -57,3 +57,13 @@ On Windows:
 12. flask init-db
 13. flask run
 
+
+### 🔐 DEMO
+If you want to test Profilesaver:
+
+1. Signup: you'll be asked for username, email and password
+2. You'll be redirected to the login page and now you can log in
+3. Add some accounts.
+4. Give me some advice
+
+[Profilesaver Demo](https://shinigami.pythonanywhere.com)
