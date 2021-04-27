@@ -31,8 +31,15 @@ On Linux
 4. export FLASK_APP=app/
 5. export FLASK_ENV=development
 6. export FLASK_DEBUG=1
-7. flask init-db
-8. flask run
+7. export HOST=yourlocalhost for MariaDB/MySQL
+8. export USER=yourdatabaseusername
+9. export PASSWORD=yourdatabasepassword
+10. export DATABASE=yourdatabasename
+11. start your MySQL/MariaDB with mysql -u username -p, type your password and create the database with the same name of the enviroment variable DATABASE
+12. flask init-db
+13. flask run
+
+optionally, you can create a .sh file at the same level of the project folder with all the enviroment variable and type .(dot) myfile.sh
 
 On Windows:
 
@@ -42,7 +49,11 @@ On Windows:
 4. set FLASK_APP=app/
 5. set FLASK_ENV=development
 6. set FLASK_DEBUG=1
-7. flask init-db
-8. flask run
+7. set HOST=yourlocalhost for MariaDB/MySQL
+8. set USER=yourdatabaseusername
+9. set PASSWORD=yourdatabasepassword
+10. set DATABASE=yourdatabasename
+11. start your MySQL/MariaDB with mysql -u username -p, type your password and create the database with the same name of the enviroment variable DATABASE
+12. flask init-db
+13. flask run
 
-Be sure to create a database on MySQL/MariaDB called profilesaver, anything else is created with flask init-db
