@@ -21,7 +21,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    pass
+    DEBUG=False
 
 config = {
      'development': DevelopmentConfig,
