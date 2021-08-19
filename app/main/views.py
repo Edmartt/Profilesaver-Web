@@ -17,8 +17,8 @@ def index():
 def add_account():
     form = AddAccount()
     if form.validate_on_submit():
-        web = Website(form.username.data, form.url.data, form.email.data, form.password.data, form.notas.data, session['user_id'])
-        web.saveweb(web)
+        web = Website(form)
+        web.saveweb()
         flash('Perfil Guardado correctamente')
     return render_template('add_account.html', form=form)
 
