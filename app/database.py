@@ -13,22 +13,22 @@ def get_db():
             password=current_app.config['MYSQL_PASSWORD'],
             database=current_app.config['MYSQL_DB']
         )
-        g.c=g.db.cursor(dictionary=True)
-        return g.db,g.c
+        g.c = g.db.cursor(dictionary=True)
+        return g.db, g.c
 
 
 def close_db(e=None):
-    db = g.pop('db', None)
+    db_connection = g.pop('db', None)
 
-    if db is not None:
-        db.close()
+    if db_connection is not None:
+        db_connection.close()
 
 
 def init_db():
-    db,c= get_db()
+    db_connection, cursor = get_db()
     for i in instructions:
-        c.execute(i)
-    db.commit()
+        cursor.execute(i)
+    db_connection.commit()
 
 
 @click.command('init-db')
