@@ -1,0 +1,8 @@
+.git/
+instance/*
+**/node_modules
+**/.ipynb_checkpoints
+**/data
+**/__pycache__
+**/.vscode
+**/env
