@@ -21,7 +21,7 @@ Profilesaver can:
      6. Password reset option
 
 
-## 💥 Requirement
+## 💥Install
 
 ### On Linux:
      1. python3 -m venv name
@@ -59,6 +59,7 @@ optionally, you can create a .sh file at the same level of the project folder wi
 
 ### 🔐 DEMO
 If you want to test Profilesaver:
+
      1. Signup: you'll be asked for username, email and password
 
      2. You'll be redirected to the login page and now you can log in
