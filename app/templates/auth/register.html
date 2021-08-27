@@ -3,13 +3,52 @@
 {% block title %} Registro de Usuario{% endblock %}
 
 {% block content_page %}
-<form action="register" method="POST">
-	{{form.hidden_tag()}}
-	{{form.username(placeholder="Username")}}
-	{{form.email(placeholder="Email")}}
-	{{form.password(placeholder="Password")}}
-	{{form.submit()}}
 
-</form>
+<meta http-equiv="refresh" content="5" >
 
-{% endblock %}
+<div class="contaniner">
+	<div class="row justify-content-center">
+
+		<form action="register" method="POST">
+
+			<div class="form-group">
+				<div class="row justify-content-center">
+					<img class="img-fluid logo col-7" src={{url_for('static', filename='img/log2.png')}}>
+				</div>	
+					<div class="row justify-content-center">
+						<div class="col-5">
+							{{form.hidden_tag()}}
+							{{form.username(placeholder="Username", class="form-control username")}}
+						</div>
+					</div>
+			</div>
+
+			<div class="form-group">
+				<div class="row justify-content-center">
+					<div class="col-5">
+						{{form.email(placeholder="Email", class="form-control username")}}
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="row justify-content-center loc">
+					<div class="col-5 password">
+						{{form.password(placeholder="Password", class="form-control username")}}
+					</div>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-3">
+					{{form.submit(class="btn btn-block btn-success btn-log")}}
+				</div>
+			</div>
+
+
+		</form>
+
+				</div>
+			</div>
+
+			{% endblock %}
