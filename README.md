@@ -25,31 +25,46 @@ Profilesaver can:
 
 ### On Linux:
      1. python3 -m venv name
+
      2. . name/bin/activate
+
      3. pip3 install -r requirements.txt
+
      4. create a .env file
-     5. add to the .env file FLASK_APP=run.py, FLASK_ENV=development, SECRET_KEY=any value you want for test purpose only. </br>
+
+     5. add to the .env file FLASK_APP=run.py, FLASK_ENV=development, SECRET_KEY=any value
      HOST=localhost, USER=your username, PASSWORD= your server password, DATABASE=create a new database and use that name
+
      12. flask init-db
+
      13. flask run
 
 optionally, you can create a .sh file at the same level of the project folder with all the enviroment variable and type **. myfile.sh**
 
 ### On Windows:
      1. python -m venv name
+
      2. . name/Scripts/activate
+
      3. pip install -r requirements.txt
+
      4. create a .env file
-     5. add to the .env file FLASK_APP=run.py, FLASK_ENV=development, SECRET_KEY=any value you want for test purpose only. </br>
+
+     5. add to the .env file FLASK_APP=run.py, FLASK_ENV=development, SECRET_KEY=any value you want for test purpose only.
      HOST=localhost, USER=your username, PASSWORD= your server password, DATABASE=create a new database and use that name
+
      12. flask init-db
+
      13. flask run
 
 ### 🔐 DEMO
 If you want to test Profilesaver:
      1. Signup: you'll be asked for username, email and password
+
      2. You'll be redirected to the login page and now you can log in
+
      3. Add some accounts.
+
      4. Give me some advice
 
 [Profilesaver Demo](https://shinigami.pythonanywhere.com)
