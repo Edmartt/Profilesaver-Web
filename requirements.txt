@@ -15,7 +15,7 @@ MarkupSafe==2.0.1
 mysql-connector==2.2.9
 mysqlclient==2.0.3
 packaging==21.0
-pluggy==0.13.1
+pluggy==1.0.0
 py==1.10.0
 pyparsing==2.4.7
 toml==0.10.2
