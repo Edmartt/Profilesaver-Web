@@ -14,42 +14,33 @@ class Website:
         self.user_id = session['user_id']
 
     def saveweb(self):
+        connection, cursor = get_db()
         query = '''INSERT INTO Websites(user_id, web_name, web_email, web_pass,
         nota, web_username) VALUES(%s, %s, %s, %s, %s, %s)'''
-        db_connection, cursor = get_db()
 
         try:
             cursor.execute(query, (self.user_id, self.web_name,
                                    self.web_email, self.web_pass,
                                    self.nota, self.web_username))
-            db_connection.commit()
-        except Exception as e:
-            print(e)
-        finally:
-            close_db()
+            connection.commit()
+        except Exception as ex:
+            print(ex)
 
-    @staticmethod
-    def showprofiles(user_id):
+    def showprofiles(self):
         _, cursor = get_db()
         query = 'SELECT * FROM Websites WHERE user_id=%s'
-
         try:
-            cursor.execute(query, (user_id,))
+            cursor.execute(query, (self.user_id,))
             webs = cursor.fetchall()
-            return webs
-        except Exception as e:
-            print(e)
+            if webs:
+                return webs
+        except Exception as ex:
+            print(ex)
         finally:
-            close_db()
+            pass
 
     def editWeb(self, web_id):
-        '''
-        Esta función escribe los cambios en la base de datos, una vez
-        se han cargado los datos en el formulario presionando el botón edit
-
-        :param web_id: el id del sitio web o red social guardado
-        '''
-        db_connection, cursor = get_db()
+        connection, cursor = get_db()
         query = '''UPDATE Websites SET web_name = %s, web_email = %s,
         web_pass = %s, nota = %s, web_username = %s WHERE web_id = %s'''
 
@@ -57,37 +48,27 @@ class Website:
             cursor.execute(query, (self.web_name, self.web_email,
                                    self.web_pass, self.nota,
                                    self.web_username, web_id))
-            db_connection.commit()
+            connection.commit()
         except Exception as ex:
             print(ex)
 
     @staticmethod
     def loadWeb(web_id):
-        '''
-        loadWeb carga todos los datos del sitio web seleccionado
-        en el index de la aplicación  a un formulario desde donde se
-        podrán editar
-        :param web_id: id del sitio web o red social guardado
-        '''
+        _, cursor = get_db()
         try:
-            db_connection, cursor = get_db()
-            cursor.execute('SELECT * FROM Websites WHERE web_id=%s', (id,))
+            cursor.execute('SELECT * FROM Websites WHERE web_id=%s', (web_id,))
             data = cursor.fetchone()
-            return data
-        except Exception as e:
-            print(e)
-        finally:
-            close_db()
+            if data:
+                return data
+        except Exception as ex:
+            print(ex)
 
     @staticmethod
     def deleteWeb(id):
-        db_connection, cursor = get_db()
+        connection, cursor = get_db()
         query = 'DELETE FROM Websites WHERE web_id=%s'
-
         try:
             cursor.execute(query, (id,))
-            db_connection.commit()
+            connection.commit()
         except Exception as ex:
             print(ex)
-        finally:
-            close_db()
