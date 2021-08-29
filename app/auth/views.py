@@ -28,20 +28,23 @@ def load_logged_in_user():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = Login()
+    if session.get('user_id', None) is not None:
+        return redirect(url_for('main.index'))
 
-    if form.validate_on_submit():
-        user = User(form.username.data, form.password.data)
-        user_data = user.select_user(form.username.data)
+    else:
+        if form.validate_on_submit():
+            user = User(form.username.data, form.password.data)
+            user_data = user.select_user(form.username.data)
 
-        if user_data is not None and user.verify_password(form.password.data):
-            session.clear()
-            session['user_id'] = user_data['id']
-            next = request.args.get('next', None)
+            if user_data is not None and user.verify_password(
+                    form.password.data):
 
-            if next is None or not next.startswith('/'):
-                next = url_for('main.index')
-            return redirect(next)
-
+                session.clear()
+                session['user_id'] = user_data['id']
+                next = request.args.get('next', None)
+                if next is None or not next.startswith('/'):
+                    next = url_for('main.index')
+                return redirect(next)
         flash('Nombre de usuario o contraseña no válido')
     return render_template('auth/login.html', form=form)
 
