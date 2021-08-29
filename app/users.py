@@ -1,5 +1,7 @@
-from werkzeug.security import check_password_hash,generate_password_hash
-from .database import get_db, close_db
+import logging
+from werkzeug.security import check_password_hash, generate_password_hash
+from .database import get_db, close_db, db_connector
+
 
 class User:
 
@@ -20,39 +22,36 @@ class User:
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-
-    def select_user(self, username):
-        try:
-            db, cursor = get_db()
-            cursor.execute('SELECT * FROM Users WHERE username=%s', (username,))
-            user = cursor.fetchone()
-
-            if user:
-                return user
-        except Exception as e:
-            print(e)
-        finally:
-            close_db()
+    @db_connector
+    def select_user(self, username, **kwargs):
+        cursor = kwargs.pop('cursor')
+        query = 'SELECT * FROM Users WHERE username=%s'
+        cursor.execute(query, (username,))
+        user = cursor.fetchone()
+        if user:
+            return user
 
     @staticmethod
     def select_user_by_id(id):
+        _, cursor = get_db()
+        query = 'SELECT id FROM Users WHERE id=%s'
         try:
-            db, cursor = get_db()
-            cursor.execute('SELECT * FROM Users WHERE id=%s', (id,))
+            cursor.execute(query, (id,))
             user = cursor.fetchone()
             if user:
                 return user
-        except Exception as e:
-            print(e)
+        except:
+            logging.exception('Error: ')
         finally:
             close_db()
 
     def registerUser(self, user):
-        try:
-            db, cursor = get_db()
-            cursor.execute('INSERT INTO Users (username,email,password) VALUES(%s,%s,%s)', (self.username, self.email, self.password_hash))
-            db.commit()
-        except Exception as e:
-            print(e)
-        finally:
-            close_db()
+            connection, cursor = get_db()
+            query = '''INSERT INTO Users (username, email, password)
+            VALUES(%s, %s, %s)'''
+            try:
+                cursor.execute(query, (
+                    self.username, self.email, self.password_hash))
+                connection.commit()
+            except:
+                logging.exception("Error: ")
