@@ -8,7 +8,9 @@ from .forms import AddAccount, EditWeb
 @main.route('/')
 @login_required
 def index():
-    webs = Website.showprofiles(session['user_id'])
+    form = AddAccount()
+    web = Website(form)
+    webs = web.showprofiles()
     return render_template('index.html', webs=webs)
 
 
