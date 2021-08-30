@@ -7,7 +7,7 @@ Flask-Email==1.4.4
 Flask-Mail==0.9.1
 Flask-WTF==0.15.1
 idna==3.2
-importlib-metadata==4.7.1
+importlib-metadata==4.8.1
 iniconfig==1.1.1
 itsdangerous==2.0.1
 Jinja2==3.0.1
