@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, session, flash
+from flask import render_template, redirect, url_for, flash
 from app.auth.views import login_required
 from app.websites import Website
 from . import main
