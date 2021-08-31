@@ -1,16 +1,14 @@
 from flask import session
-from .main.forms import AddAccount
 from .database import get_db, close_db
 
 
 class Website:
     def __init__(self, web_form):
-        web_form = AddAccount()
         self.web_username = web_form.username.data
         self.web_name = web_form.url.data
         self.web_email = web_form.email.data
         self.web_pass = web_form.password.data
-        self.nota = web_form.email.data
+        self.nota = web_form.notas.data
         self.user_id = session['user_id']
 
     def saveweb(self):
@@ -25,19 +23,20 @@ class Website:
             connection.commit()
         except Exception as ex:
             print(ex)
+        finally:
+            close_db()
 
     def showprofiles(self):
         _, cursor = get_db()
-        query = 'SELECT * FROM Websites WHERE user_id=%s'
+        query = 'SELECT * FROM websites WHERE user_id=%s'
         try:
             cursor.execute(query, (self.user_id,))
             webs = cursor.fetchall()
-            if webs:
-                return webs
+            return webs
         except Exception as ex:
             print(ex)
         finally:
-            pass
+            close_db()
 
     def editWeb(self, web_id):
         connection, cursor = get_db()
@@ -51,6 +50,8 @@ class Website:
             connection.commit()
         except Exception as ex:
             print(ex)
+        finally:
+            close_db()
 
     @staticmethod
     def loadWeb(web_id):
@@ -62,6 +63,8 @@ class Website:
                 return data
         except Exception as ex:
             print(ex)
+        finally:
+            close_db()
 
     @staticmethod
     def deleteWeb(id):
@@ -72,3 +75,5 @@ class Website:
             connection.commit()
         except Exception as ex:
             print(ex)
+        finally:
+            close_db()
