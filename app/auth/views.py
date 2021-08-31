@@ -31,21 +31,20 @@ def login():
     if session.get('user_id', None) is not None:
         return redirect(url_for('main.index'))
 
-    else:
-        if form.validate_on_submit():
-            user = User(form.username.data, form.password.data)
-            user_data = user.select_user(form.username.data)
+    elif form.validate_on_submit():
+        user = User(form.username.data, form.password.data)
+        user_data = user.search_username(form.username.data)
 
-            if user_data is not None and user.verify_password(
-                    form.password.data):
+        if user_data is not None and user.verify_password(
+                form.password.data):
+            session.clear()
+            session['user_id'] = user_data['id']
+            next = request.args.get('next', None)
 
-                session.clear()
-                session['user_id'] = user_data['id']
-                next = request.args.get('next', None)
-                if next is None or not next.startswith('/'):
-                    next = url_for('main.index')
-                return redirect(next)
-        flash('Nombre de usuario o contraseña no válido')
+            if next is None or not next.startswith('/'):
+                next = url_for('main.index')
+            return redirect(next)
+        flash('Wrong username or password')
     return render_template('auth/login.html', form=form)
 
 
@@ -60,15 +59,18 @@ def logout():
 def register():
     form = Register()
 
-    if session.get('user_id') is not None:
+    if session.get('user_id', None) is not None:
         return redirect(url_for('main.index'))
 
-    else:
-        if form.validate_on_submit():
-            user = User(form.username.data,
-                        form.email.data, form.password.data)
-            user.password = form.password.data
-            user.registerUser(user)
-            flash('Usuario Registrado')
+    elif form.validate_on_submit():
+        user = User(form.username.data,
+                    form.password.data, form.email.data)
+        user.password = form.password.data
+
+        if user.search_user_by_email(form.email.data) is False:
+            user.registerUser()
+            flash('User registered')
             return redirect(url_for('auth.login'))
+
+        flash('An user with this data already exists')
     return render_template('auth/register.html', form=form)
