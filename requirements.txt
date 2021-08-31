@@ -7,7 +7,7 @@ Flask-Email==1.4.4
 Flask-Mail==0.9.1
 Flask-WTF==0.15.1
 idna==3.2
-importlib-metadata==4.7.1
+importlib-metadata==4.8.1
 iniconfig==1.1.1
 itsdangerous==2.0.1
 Jinja2==3.0.1
@@ -20,7 +20,7 @@ py==1.10.0
 pyparsing==2.4.7
 python-dotenv==0.19.0
 toml==0.10.2
-typing-extensions==3.10.0.0
+typing-extensions==3.10.0.2
 Werkzeug==2.0.1
 WTForms==2.3.3
 zipp==3.5.0
