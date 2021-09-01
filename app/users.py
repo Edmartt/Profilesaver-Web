@@ -5,6 +5,11 @@ from .database import get_db, close_db, db_connector
 
 class User:
 
+    id: int
+    username: str
+    email: str
+    password: str
+
     def __init__(self, username: str, password: str, email=None, id=None):
         self.id = id
         self.username = username
@@ -13,7 +18,7 @@ class User:
 
     @property
     def password(self) -> None:
-        raise AttributeError('No tiene acceso a esta propiedad')
+        raise AttributeError('Forbidden access')
 
     @password.setter
     def password(self, password: str) -> None:
@@ -23,7 +28,7 @@ class User:
         return check_password_hash(self.password_hash, password)
 
     @db_connector
-    def search_username(self, username: str, **kwargs) -> object:
+    def search_username(self, username: str, **kwargs) -> dict:
         cursor = kwargs.pop('cursor')
         query = 'SELECT * FROM Users WHERE username=%s'
         cursor.execute(query, (username,))
@@ -47,7 +52,7 @@ class User:
         return False
 
     @staticmethod
-    def select_user_by_id(id: int) -> object:
+    def select_user_by_id(id: int) -> dict:
         _, cursor = get_db()
         query = 'SELECT id FROM Users WHERE id=%s'
         try:
