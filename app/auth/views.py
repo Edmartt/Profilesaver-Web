@@ -65,12 +65,12 @@ def register():
     elif form.validate_on_submit():
         user = User(form.username.data,
                     form.password.data, form.email.data)
-        user.password = form.password.data
 
-        if user.search_user_by_email(form.email.data) is False:
-            user.registerUser()
+        if user.check_user_exists(
+                form.username.data, form.email.data):
+            flash('An user with this email or username already exists')
+        else:
+            user.register_user()
             flash('User registered')
             return redirect(url_for('auth.login'))
-
-        flash('An user with this data already exists')
     return render_template('auth/register.html', form=form)
