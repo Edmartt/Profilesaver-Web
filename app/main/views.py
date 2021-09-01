@@ -37,7 +37,7 @@ def edit(id):
 @login_required
 def update(id):
     form = EditWeb()
-    web = Website(form.username.data, form.url.data, form.email.data, form.password.data, form.notas.data)
+    web = Website(form)
     web.editWeb(id)
     flash('Datos actualizados')
     return redirect(url_for('main.index'))
@@ -49,9 +49,3 @@ def delete(id):
     Website.deleteWeb(id)
     flash('Dato Eliminado correctamente')
     return redirect(url_for('main.index'))
-
-
-@main.route('/info', methods=['GET', 'POST'])
-@login_required
-def get_info():
-    pass
