@@ -37,16 +37,17 @@ class User:
             self.password_hash = user['password']
             return user
 
-    def search_user_by_email(self, email: str) -> bool:
+    def check_user_exists(self, username: str, email: str) -> bool:
         _, cursor = get_db()
-        query = 'SELECT * from Users WHERE email=%s'
+        query = '''SELECT username, email from Users
+        WHERE username=%s OR email=%s'''
         try:
-            cursor.execute(query, (email,))
+            cursor.execute(query, (username, email))
             user = cursor.fetchone()
             if user:
                 return True
         except:
-            logging.exception('Error: ')
+            logging.exception('ERROR: ')
         finally:
             close_db()
         return False
@@ -65,11 +66,15 @@ class User:
         finally:
             close_db()
 
-    @db_connector
-    def registerUser(self, **kwargs) -> None:
-        cursor = kwargs.pop('cursor')
-        query = '''INSERT INTO Users (username, email, password)
+    def register_user(self) -> None:
+        connection, cursor = get_db()
+        query = '''INSERT INTO users (username, email, password)
                    VALUES(%s, %s, %s)'''
-        cursor.execute(query,
-                       (self.username, self.email, self.password_hash))
-        return
+        try:
+            cursor.execute(query,
+                           (self.username, self.email, self.password_hash))
+            connection.commit()
+        except:
+            logging.exception('ERROR: ')
+        finally:
+            close_db()
