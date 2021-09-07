@@ -1,19 +1,19 @@
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
-import mysql.connector
+import mariadb
 from .schema import instructions
 
 
 def get_db():
     if 'db' not in g:
-        g.db = mysql.connector.connect(
+        g.db = mariadb.connect(
             host=current_app.config['MYSQL_HOST'],
             user=current_app.config['MYSQL_USER'],
             password=current_app.config['MYSQL_PASSWORD'],
             database=current_app.config['MYSQL_DB']
         )
-        g.c = g.db.cursor(dictionary=True, buffered=True)
+        g.c = g.db.cursor(dictionary=True)
         return g.db, g.c
 
 
