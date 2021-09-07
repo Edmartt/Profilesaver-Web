@@ -1,90 +1,64 @@
 from flask import session
-from .database import get_db, close_db
 from .main.forms import AddAccount
 
 
 class Website:
-    web_username: str
-    web_name: str
-    web_email: str
-    web_pass: str
-    web_nota: str
-    user_id: int
+    __web_name: str
+    __web_email: str
+    __web_pass: str
+    __nota: str
+    __web_username: str
+
+    web_form: AddAccount
 
     def __init__(self, web_form: AddAccount):
-        self.web_username = web_form.username.data
-        self.web_name = web_form.url.data
-        self.web_email = web_form.email.data
-        self.web_pass = web_form.password.data
-        self.nota = web_form.notas.data
-        self.user_id = session['user_id']
+        self.__web_name = web_form.url.data
+        self.__web_email = web_form.email.data
+        self.__web_pass = web_form.password.data
+        self.__nota = web_form.notas.data
+        self.__web_username = web_form.username.data
+        self.__user_id = session['user_id']
 
-    def saveweb(self) -> None:
-        connection, cursor = get_db()
-        query = '''INSERT INTO Websites(user_id, web_name, web_email, web_pass,
-        nota, web_username) VALUES(%s, %s, %s, %s, %s, %s)'''
+    @property
+    def user_id(self):
+        return self.__user_id
 
-        try:
-            cursor.execute(query, (self.user_id, self.web_name,
-                                   self.web_email, self.web_pass,
-                                   self.nota, self.web_username))
-            connection.commit()
-        except Exception as ex:
-            print(ex)
-        finally:
-            close_db()
-        return
+    @property
+    def web_name(self):
+        return self.__web_name
 
-    def showprofiles(self) -> dict:
-        _, cursor = get_db()
-        query = 'SELECT * FROM websites WHERE user_id=%s'
-        try:
-            cursor.execute(query, (self.user_id,))
-            webs = cursor.fetchall()
-            return webs
-        except Exception as ex:
-            print(ex)
-        finally:
-            close_db()
+    @web_name.setter
+    def web_name(self, web_name):
+        self.__web_name = web_name
 
-    def editWeb(self, web_id: int) -> None:
-        connection, cursor = get_db()
-        query = '''UPDATE Websites SET web_name = %s, web_email = %s,
-        web_pass = %s, nota = %s, web_username = %s WHERE web_id = %s'''
+    @property
+    def web_email(self):
+        return self.__web_email
 
-        try:
-            cursor.execute(query, (self.web_name, self.web_email,
-                                   self.web_pass, self.nota,
-                                   self.web_username, web_id))
-            connection.commit()
-        except Exception as ex:
-            print(ex)
-        finally:
-            close_db()
-        return
+    @web_email.setter
+    def web_email(self, web_email):
+        self.__web_email = web_email
 
-    @staticmethod
-    def loadWeb(web_id: int) -> dict:
-        _, cursor = get_db()
-        try:
-            cursor.execute('SELECT * FROM Websites WHERE web_id=%s', (web_id,))
-            data = cursor.fetchone()
-            if data:
-                return data
-        except Exception as ex:
-            print(ex)
-        finally:
-            close_db()
+    @property
+    def web_pass(self):
+        return self.__web_pass
 
-    @staticmethod
-    def deleteWeb(id: int) -> None:
-        connection, cursor = get_db()
-        query = 'DELETE FROM Websites WHERE web_id=%s'
-        try:
-            cursor.execute(query, (id,))
-            connection.commit()
-        except Exception as ex:
-            print(ex)
-        finally:
-            close_db()
-        return
+    @web_pass.setter
+    def web_pass(self, web_pass):
+        self.__web_pass = web_pass
+
+    @property
+    def nota(self):
+        return self.__nota
+
+    @nota.setter
+    def nota(self, nota):
+        self.__nota = nota
+
+    @property
+    def web_username(self):
+        return self.__web_username
+
+    @web_username.setter
+    def web_username(self, web_username):
+        self.__web_username = web_username
