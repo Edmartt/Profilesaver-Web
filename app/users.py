@@ -1,6 +1,4 @@
-import logging
 from werkzeug.security import check_password_hash, generate_password_hash
-from .database import get_db, close_db, db_connector
 
 
 class User:
