@@ -1,19 +1,20 @@
 from abc import ABC, abstractmethod
+from app.querymanager import QueryManager
 from app.websites import Website
 
 
 class IWebsitesdao(ABC):
 
     @abstractmethod
-    def get(self, web_id: int) -> dict:
+    def get(self, web_id: int, db: QueryManager) -> dict:
         pass
 
     @abstractmethod
-    def get_all(self, user_id: int) -> dict:
+    def get_all(self, user_id: int, db: QueryManager) -> dict:
         pass
 
     @abstractmethod
-    def add(self, web: Website) -> None:
+    def add(self, web: Website, db: QueryManager) -> None:
         pass
 
     @abstractmethod
