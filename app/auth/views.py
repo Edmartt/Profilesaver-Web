@@ -3,6 +3,7 @@ from flask import render_template, redirect,\
         request, url_for, flash, session, g
 
 from app.users import User
+from app.querymanager import QueryManager
 from app.dao.usersdao.iusersdao import IUsersdao
 from app.dao.usersdao.usersdaoimpl import UserDao
 from . import auth
@@ -24,12 +25,15 @@ def login_required(view):
 @auth.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
-    g.user = None if user_id is None else UserDao.select_user_by_id(user_id)
+    db_manager = QueryManager()
+    g.user = None if user_id is None else UserDao.select_user_by_id(
+            user_id, db_manager)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = Login()
+    db_manager: QueryManager
     userdao: IUsersdao  # acceso a los metodos implementados de la interfaz
     user: User
 
@@ -39,7 +43,8 @@ def login():
     elif form.validate_on_submit():
         user = User(form.username.data, form.password.data)
         userdao = UserDao()
-        user_data = userdao.get(user)
+        db_manager = QueryManager()
+        user_data = userdao.get(user, db_manager)
 
         if user_data is not None and user.verify_password(
                 form.password.data):
@@ -65,6 +70,7 @@ def logout():
 def register():
     userdao: IUsersdao
     userdao = UserDao()
+    db_manager = QueryManager()
     user: User
     form = Register()
 
@@ -75,10 +81,10 @@ def register():
         user = User(form.username.data,
                     form.password.data, form.email.data)
 
-        if userdao.check_user_exists(user):
+        if userdao.check_user_exists(user, db_manager):
             flash('An user with this email or username already exists')
         else:
-            userdao.add(user)
+            userdao.add(user, db_manager)
             flash('User registered')
             return redirect(url_for('auth.login'))
     return render_template('auth/register.html', form=form)
