@@ -1,64 +1,34 @@
-import logging
+from app.querymanager import QueryManager
 from .iusersdao import IUsersdao
 from app.users import User
-from app.database import db_connector, get_db, close_db
 
 
 class UserDao(IUsersdao):
 
-    def get(self, user: User) -> dict:
-        connection, cursor = get_db()
-        query = 'SELECT * FROM Users WHERE username=%s'
+    def get(self, user: User, db: QueryManager) -> dict:
+        query = 'SELECT * FROM users WHERE username=?'
+        user_data = db.select(query, (user.username,), all=False)
+        if user_data:
+            user.password_hash = user_data['password']
+            return user_data
 
-        try:
-            cursor.execute(query, (user.username,))
-            user_data = cursor.fetchone()
-            if user_data:
-                user.password_hash = user_data['password']
-                return user_data
-        except:
-            logging.exception('ERROR: ')
-        finally:
-            close_db()
-
-    def add(self, user: User) -> None:
-        connection, cursor = get_db()
+    def add(self, user: User, db: QueryManager) -> None:
         query = '''INSERT INTO users (username, email, password)
                    VALUES(%s, %s, %s)'''
-        try:
-            cursor.execute(query,
-                           (user.username, user.email, user.password_hash))
-            connection.commit()
-        except:
-            logging.exception('ERROR: ')
-        finally:
-            close_db()
+        db.insert(query,
+                  (user.username, user.email, user.password_hash))
 
-    def check_user_exists(self, user: User) -> bool:
-        _, cursor = get_db()
+    def check_user_exists(self, user: User, db: QueryManager) -> bool:
         query = '''SELECT username, email from Users
         WHERE username=%s OR email=%s'''
-        try:
-            cursor.execute(query, (user.username, user.email))
-            user = cursor.fetchone()
-            if user:
-                return True
-        except:
-            logging.exception('ERROR: ')
-        finally:
-            close_db()
+        user = db.select(query, (user.username, user.email), all=False)
+        if user:
+            return True
         return False
 
     @staticmethod
-    def select_user_by_id(id: int) -> dict:
-        _, cursor = get_db()
+    def select_user_by_id(id: int, db: QueryManager) -> dict:
         query = 'SELECT id FROM Users WHERE id=%s'
-        try:
-            cursor.execute(query, (id,))
-            user = cursor.fetchone()
-            if user:
-                return user
-        except:
-            logging.exception('Error: ')
-        finally:
-            close_db()
+        user = db.select(query, (id,), all=False)
+        if user:
+            return user
