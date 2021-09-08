@@ -17,22 +17,6 @@ def get_db():
         return g.db, g.c
 
 
-def db_connector(func):  # decorator that makes connection to db
-    def wrapper(*args, **kwargs):
-        connection, cursor = get_db()
-        try:
-            result = func(*args, cursor=cursor, **kwargs)
-        except:
-            connection.rollback()
-            raise
-        else:
-            connection.commit()
-        finally:
-            connection.close()
-        return result
-    return wrapper
-
-
 def close_db(e=None):
     db_connection = g.pop('db', None)
 
