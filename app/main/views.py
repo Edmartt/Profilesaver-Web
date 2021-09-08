@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for, flash
+from app.querymanager import QueryManager
 from app.auth.views import login_required
 from app.dao.websites_dao.iwebsitesdao import IWebsitesdao
 from app.dao.websites_dao.websitesdaoimp import Websitedao
@@ -10,11 +11,12 @@ from .forms import AddAccount, EditWeb
 @main.route('/')
 @login_required
 def index():
+    websitedao: IWebsitesdao
     form = AddAccount()
     website = Website(form)
-    websitedao: IWebsitesdao
     websitedao = Websitedao()
-    webs = websitedao.get_all(website.user_id)
+    db_manager = QueryManager()
+    webs = websitedao.get_all(website.user_id, db_manager)
     return render_template('index.html', webs=webs)
 
 
@@ -22,12 +24,13 @@ def index():
 @login_required
 def add_account():
     form = AddAccount()
+    db_manager = QueryManager()
     websitedao: IWebsitesdao
 
     if form.validate_on_submit():
         website = Website(form)
         websitedao = Websitedao()
-        websitedao.add(website)
+        websitedao.add(website, db_manager)
         flash('Perfil Guardado correctamente')
     return render_template('add_account.html', form=form)
 
@@ -35,9 +38,10 @@ def add_account():
 @main.route('/edit/<string:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    websitedao: IWebsitesdao()
+    websitedao: IWebsitesdao
+    db_manager = QueryManager()
     websitedao = Websitedao()
-    web = websitedao.get(id)
+    web = websitedao.get(id, db_manager)
     form = EditWeb(username=web['web_username'], url=web['web_name'], password=web['web_pass'], notas=web['nota'], email=web['web_email'])
     return render_template('update_webs.html', web=web, form=form)
 
@@ -57,8 +61,6 @@ def update(id):
 @main.route('/delete/<string:id>', methods=['GET', 'POST'])
 @login_required
 def delete(id):
-    form = AddAccount()
-    website = Website(form)
     websitedao: IWebsitesdao
     websitedao = Websitedao()
     websitedao.delete(id)
