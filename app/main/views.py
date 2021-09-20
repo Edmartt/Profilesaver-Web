@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for, flash
 from app.querymanager import QueryManager
+from app.database import MariaDatabase
 from app.auth.views import login_required
 from app.dao.websites_dao.iwebsitesdao import IWebsitesdao
 from app.dao.websites_dao.websitesdaoimp import Websitedao
@@ -15,7 +16,7 @@ def index():
     form = AddAccount()
     website = Website(form)
     websitedao = Websitedao()
-    db_manager = QueryManager()
+    db_manager = QueryManager(MariaDatabase())
     webs = websitedao.get_all(website.user_id, db_manager)
     return render_template('index.html', webs=webs)
 
@@ -24,7 +25,7 @@ def index():
 @login_required
 def add_account():
     form = AddAccount()
-    db_manager = QueryManager()
+    db_manager = QueryManager(MariaDatabase())
     websitedao: IWebsitesdao
 
     if form.validate_on_submit():
@@ -39,7 +40,7 @@ def add_account():
 @login_required
 def edit(id):
     websitedao: IWebsitesdao
-    db_manager = QueryManager()
+    db_manager = QueryManager(MariaDatabase())
     websitedao = Websitedao()
     web = websitedao.get(id, db_manager)
     form = EditWeb(username=web['web_username'], url=web['web_name'], password=web['web_pass'], notas=web['nota'], email=web['web_email'])
