@@ -1,7 +1,7 @@
 from app.querymanager import QueryManager
 from .iwebsitesdao import IWebsitesdao
 from app.websites import Website
-from app.database import get_db, close_db
+from app.database import MariaDatabase
 
 
 class Websitedao(IWebsitesdao):
@@ -28,7 +28,8 @@ class Websitedao(IWebsitesdao):
                           web.nota, web.web_username))
 
     def update(self, web: Website, web_id: int) -> None:
-        connection, cursor = get_db()
+        maria = MariaDatabase()
+        connection, cursor = maria.get_db()
         query = '''UPDATE Websites SET web_name = %s, web_email = %s,
         web_pass = %s, nota = %s, web_username = %s WHERE web_id = %s'''
 
@@ -40,10 +41,11 @@ class Websitedao(IWebsitesdao):
         except Exception as ex:
             print(ex)
         finally:
-            close_db()
+            maria.close_db()
 
     def delete(self, web_id):
-        connection, cursor = get_db()
+        maria = MariaDatabase()
+        connection, cursor = maria.get_db()
         query = 'DELETE FROM Websites WHERE web_id=%s'
 
         try:
@@ -52,4 +54,4 @@ class Websitedao(IWebsitesdao):
         except Exception as ex:
             print(ex)
         finally:
-            close_db()
+            maria.close_db()
