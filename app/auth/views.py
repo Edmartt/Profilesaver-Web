@@ -1,6 +1,8 @@
 import functools
 from flask import render_template, redirect,\
         request, url_for, flash, session, g
+from app.iconnector import IConnector
+from app.database import MariaDatabase
 
 from app.users import User
 from app.querymanager import QueryManager
@@ -25,7 +27,7 @@ def login_required(view):
 @auth.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
-    db_manager = QueryManager()
+    db_manager = QueryManager(MariaDatabase())
     g.user = None if user_id is None else UserDao.select_user_by_id(
             user_id, db_manager)
 
@@ -43,7 +45,7 @@ def login():
     elif form.validate_on_submit():
         user = User(form.username.data, form.password.data)
         userdao = UserDao()
-        db_manager = QueryManager()
+        db_manager = QueryManager(MariaDatabase())
         user_data = userdao.get(user, db_manager)
 
         if user_data is not None and user.verify_password(
@@ -70,7 +72,7 @@ def logout():
 def register():
     userdao: IUsersdao
     userdao = UserDao()
-    db_manager = QueryManager()
+    db_manager = QueryManager(MariaDatabase())
     user: User
     form = Register()
 
