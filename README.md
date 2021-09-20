@@ -13,8 +13,8 @@ Profilesaver can:
      6. Your session is active even if you close the browser, unless you choose to logout
 
 ## Soon 🔜
-     1. Email validation format.
-     2. Error messages
+     1. Email validation format. ✔️
+     2. Error messages ✔️
      3. Email confirmation with token
      4. Username changing
      5. Password changing with email confirmation message
