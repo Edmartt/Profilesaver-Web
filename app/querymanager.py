@@ -1,11 +1,14 @@
 from mariadb import ProgrammingError
-from app.database import get_db, close_db
+from app.iconnector import IConnector
 
 
 class QueryManager:
 
+    def __init__(self, db_connector: IConnector):
+        self.db_connector = db_connector
+
     def select(self, query, *args, all=False):
-        _, cursor = get_db()
+        _, cursor = self.db_connector.get_db()
         try:
             cursor.execute(query, *args)
             if all:
@@ -15,14 +18,14 @@ class QueryManager:
         except ProgrammingError as ex:
             print(ex)
         finally:
-            close_db()
+            self.db_connector.close_db()
 
     def insert(self, query, *args):
-        connection, cursor = get_db()
+        connection, cursor = self.db_connector.get_db()
         try:
             cursor.execute(query, (*args))
             connection.commit()
         except ProgrammingError as ex:
             print(ex)
         finally:
-            close_db()
+            self.db_connector.close_db()
