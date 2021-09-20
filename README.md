@@ -26,7 +26,7 @@ Profilesaver can:
 ### On Linux:
 `$ python3 -m venv name`
 
-`$ . name/bin/activate`
+`$ . envname/bin/activate`
 
 `$ pip3 install -r requirements.txt`
 
@@ -46,7 +46,7 @@ optionally, you can create a .sh file at the same level of the project folder wi
 
 `$ python -m venv name`
 
-`$ . name/Scripts/activate`
+`$ envname/Scripts/activate`
 
 `$ pip install -r requirements.txt`
 
