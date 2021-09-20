@@ -53,6 +53,17 @@
 	
 	</div>
 
+
+	<div class="container">
+	{% for field, errors in form.errors.items() %}
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		    {{ form.label  }} {{ ', '.join(errors)  }}
+	</div>
+	{% endfor %}
+	</div>
+
+
 	{% block content_page %}
 
 
