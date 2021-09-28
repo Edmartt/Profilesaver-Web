@@ -2,12 +2,10 @@ FROM python:3.7
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
-
 COPY . /app
+
+RUN pip install -r requirements.txt
 
 ENV FLASK_RUN_HOST 0.0.0.0
 
-EXPOSE 5000
-
-CMD ["flask init-db; flask run"]
+CMD flask init-db ; flask run
