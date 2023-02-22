@@ -25,4 +25,4 @@ toml==0.10.2
 typing-extensions==4.5.0
 Werkzeug==2.2.3
 WTForms==2.3.3
-zipp==3.4.1
+zipp==3.14.0
